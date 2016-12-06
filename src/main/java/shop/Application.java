@@ -3,7 +3,7 @@ package shop;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import shop.setup.data.Data;
+import shop.setup.Data;
 
 @SpringBootApplication(scanBasePackages = "shop")
 public class Application {

@@ -1,4 +1,4 @@
-package shop.setup.data;
+package shop.setup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
