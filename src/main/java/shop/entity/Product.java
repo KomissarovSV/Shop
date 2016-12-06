@@ -22,7 +22,7 @@ public class Product {
     Company company;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
-    private List<AttributeValue> attributeValue;
+    private List<AttributeValue> attributeValues;
 
     @ManyToOne
     private Type type;

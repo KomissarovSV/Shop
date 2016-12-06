@@ -66,7 +66,7 @@ public class Data {
             System.out.println(product.getCompany());
             System.out.println(product.getDescription());
             System.out.println(product.getType().getName());
-            List<AttributeValue> attributeValue = product.getAttributeValue();
+            List<AttributeValue> attributeValue = product.getAttributeValues();
             for (AttributeValue value : attributeValue) {
                 System.out.print(value.getAttribute().getName() + " ");
                 System.out.println(value.getValue());
