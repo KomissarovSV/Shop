@@ -7,17 +7,12 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "order")
-public class Order {
+public class OrderObj {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer count;
-
-    private Double cost;
-
     @OneToMany(mappedBy = "order")
-    private List<OrderProduct> orderProducts;
+    private List<Position> orderPositions;
 }

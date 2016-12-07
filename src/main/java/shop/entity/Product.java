@@ -19,12 +19,14 @@ public class Product {
     private String description;
 
     @ManyToOne
-    Company company;
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     private List<AttributeValue> attributeValues;
 
     @ManyToOne
+    @JoinColumn(name = "type_id")
     private Type type;
 
 }

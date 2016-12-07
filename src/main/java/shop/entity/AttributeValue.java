@@ -15,9 +15,11 @@ public class AttributeValue {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
+    @JoinColumn
     private Attribute attribute;
 
     private String value;
