@@ -24,5 +24,5 @@ public class Position {
 
     @ManyToOne
     @JoinColumn
-    private OrderObj orderObj;
+    private Order order;
 }

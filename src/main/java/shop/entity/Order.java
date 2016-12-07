@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@Entity
-public class OrderObj {
+@Entity(name = "OrderTable")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,4 +15,7 @@ public class OrderObj {
 
     @OneToMany(mappedBy = "order")
     private List<Position> orderPositions;
+
+    @ManyToOne
+    private User user;
 }
