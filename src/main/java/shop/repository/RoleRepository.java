@@ -6,4 +6,6 @@ import shop.entity.Role;
 
 @Service
 public interface RoleRepository extends CrudRepository<Role,Long>{
+
+    public Role findByName(String name);
 }

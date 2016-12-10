@@ -26,6 +26,9 @@ public class Data {
     @Autowired
     TypeRepository typeRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     public void setUp(){
 
         Company intel = new Company("Intel");
@@ -72,6 +75,10 @@ public class Data {
                 System.out.println(value.getValue());
             }
         }
+
+        Role role_admin = new Role("ROLE_ADMIN");
+        Role role_user = new Role("ROLE_USER");
+        roleRepository.save(Arrays.asList(role_admin,role_user));
 
     }
 }

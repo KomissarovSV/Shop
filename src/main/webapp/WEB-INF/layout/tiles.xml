@@ -3,7 +3,53 @@
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-    <definition name="home"
-                template="/WEB-INF/jsp/home.jsp">
+    <definition name="base"
+                template="/WEB-INF/layout/page.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value="/WEB-INF/layout/loginlayout.jsp"/>
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <definition name="home" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value="/WEB-INF/layout/loginlayout.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/home.jsp" />
+    </definition>
+
+    <definition name="logout" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value=""/>
+        <put-attribute name="body" value="/WEB-INF/jsp/secure/logout.jsp" />
+    </definition>
+
+    <definition name="registration" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value=""/>
+        <put-attribute name="body" value="/WEB-INF/jsp/secure/registration.jsp" />
+    </definition>
+
+    <definition name="successRegister" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value=""/>
+        <put-attribute name="body" value="/WEB-INF/jsp/secure/successRegister.jsp" />
+    </definition>
+
+    <definition name="login" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value=""/>
+        <put-attribute name="body" value="/WEB-INF/jsp/secure/login.jsp" />
     </definition>
 </tiles-definitions>

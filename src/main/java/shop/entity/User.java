@@ -19,6 +19,9 @@ public class User {
 
     private String password;
 
+    @Transient
+    private String matchingPassword;
+
     @OneToMany
     private Set<Role> roles;
 }
