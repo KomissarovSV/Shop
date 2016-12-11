@@ -4,8 +4,12 @@
 <html>
 <head>
     <title><tiles:getAsString name="title"/></title>
-    <link href="/resources/css/style.css" type="text/css" rel="stylesheet"/>
     <link href="/resources/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+    <link href="/resources/css/style.css" type="text/css" rel="stylesheet"/>
+
+    <script src="/resources/js/jquery-3.1.1.min.js" type=""></script>
+    <script src="/resources/js/bootstrap.min.js" type=""></script>
+    <script src="/resources/js/angular.min.js" type="text/javascript"></script>
 </head>
 <body>
     <table width="100%">

@@ -22,7 +22,10 @@ public class Product {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @JoinTable(joinColumns={ @JoinColumn(name="att_id", referencedColumnName="id") },
+            inverseJoinColumns={ @JoinColumn(name="product_id", referencedColumnName="id") }
+            )
     private List<AttributeValue> attributeValues;
 
     @ManyToOne
