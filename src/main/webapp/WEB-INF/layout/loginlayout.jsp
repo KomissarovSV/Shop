@@ -4,8 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div style="float: right">
+
     <table style="border-spacing: 10px; border-collapse: separate;">
         <tr>
+            <td><a href="/basket">Basket</a></td>
             <sec:authorize access="isAnonymous()">
                 <td><a href="<c:url value="/user/login"/>">Log in</a></td>
                 <td>|<a href="<c:url value="/user/registration"/>">Registration</a></td>

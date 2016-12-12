@@ -1,6 +1,7 @@
 package shop.controler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.entity.Company;
@@ -38,5 +39,11 @@ public class HomeRestController {
     public Iterable<Type> getTypes(){
         Iterable<Type> all = typeRepository.findAll();
         return all;
+    }
+
+    @RequestMapping("/product/{id}")
+    public Product product(@PathVariable long id){
+        Product one = productRepository.findOne(id);
+        return one;
     }
 }
