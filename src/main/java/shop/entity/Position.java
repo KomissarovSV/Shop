@@ -1,12 +1,17 @@
 package shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
+import shop.common.PositionDeserializer;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Data
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Position {
 
     @Id
@@ -17,10 +22,8 @@ public class Position {
 
     private Double cost;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns={ @JoinColumn(name="product_id", referencedColumnName="id") },
-            inverseJoinColumns={ @JoinColumn(name="position_id", referencedColumnName="id")})
-    private List<Product> products;
+    @OneToOne
+    private Product product;
 
     @ManyToOne
     @JoinColumn

@@ -10,12 +10,7 @@ app.controller("productCtrl", function ($scope,$http) {
     }, error = function (data) {});    
     
     $scope.addBasket = function () {
-        var obj = window.sessionStorage.getItem("products");
-        var items =  $.parseJSON(obj)
-        if (items == null){
-            items = [];
-        }
-        items.push($scope.product)
-        window.sessionStorage.setItem("products",JSON.stringify(items));
+        $http.post('addBasket?id=' + id).then(function (response) {
+        },function (data) {});
     }
 });

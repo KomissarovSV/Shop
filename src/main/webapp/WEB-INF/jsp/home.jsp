@@ -17,7 +17,7 @@
                 <option ng-repeat="company in companies">{{company.name}}</option>
                 <option></option>
             </select>
-            Min Cost: <input type="number" ng-model="min">
+            Min Cost: <input type="number" min="0" ng-model="min">
             Max Cost: <input type="number" ng-model="max">
         </div>
     </div>

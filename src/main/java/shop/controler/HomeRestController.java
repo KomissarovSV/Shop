@@ -1,17 +1,17 @@
 package shop.controler;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import shop.entity.Company;
-import shop.entity.Product;
-import shop.entity.Type;
-import shop.repository.CompanyRepository;
-import shop.repository.ProductRepository;
-import shop.repository.TypeRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+import shop.entity.*;
+import shop.repository.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
+@SessionAttributes("products")
 public class HomeRestController {
 
     @Autowired
@@ -21,7 +21,13 @@ public class HomeRestController {
     CompanyRepository companyRepository;
 
     @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
     TypeRepository typeRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping("/products")
     public Iterable<Product> getProducts(){
@@ -45,5 +51,36 @@ public class HomeRestController {
     public Product product(@PathVariable long id){
         Product one = productRepository.findOne(id);
         return one;
+    }
+
+    @RequestMapping("/basket/products")
+    public List<Product> basket(@ModelAttribute("products") List<Product> products){
+        return products;
+    }
+
+    @RequestMapping("/addBasket")
+    public void addInBasket(@RequestParam("id") long id,
+                            @ModelAttribute("products") List<Product> products){
+        Product one = productRepository.findOne(id);
+        products.add(one);
+    }
+
+    @ModelAttribute("products")
+    public List<Product> populatePerson() {
+        return new ArrayList<>();
+    }
+
+    @RequestMapping("/book")
+    public void book(@RequestBody List<Position> positions){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Order order = new Order();
+        positions.forEach(position -> position.setOrder(order));
+        order.setOrderPositions(positions);
+        if (auth.isAuthenticated()) {
+            String name = auth.getName();
+            User user = userRepository.findByName(name);
+            order.setUser(user);
+        }
+        orderRepository.save(order);
     }
 }

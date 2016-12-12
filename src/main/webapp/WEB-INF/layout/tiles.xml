@@ -68,4 +68,12 @@
                        value="/WEB-INF/layout/loginlayout.jsp"/>
         <put-attribute name="body" value="/WEB-INF/jsp/basket.jsp" />
     </definition>
+
+    <definition name="history" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value="/WEB-INF/layout/loginlayout.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/history.jsp" />
+    </definition>
 </tiles-definitions>

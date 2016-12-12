@@ -85,7 +85,9 @@ public class Application{
                     .logout()
                     .logoutSuccessUrl("/user/logout")
                     .and()
-                    .rememberMe();
+                    .rememberMe()
+                    .and()
+                    .csrf().disable();
         }
 
         @Override
