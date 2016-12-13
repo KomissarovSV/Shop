@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import shop.entity.*;
 import shop.repository.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @SessionAttributes("products")
@@ -71,16 +73,25 @@ public class HomeRestController {
     }
 
     @RequestMapping("/book")
-    public void book(@RequestBody List<Position> positions){
+    public void book(@RequestBody Set<Position> positions, @ModelAttribute("products") List<Product> products){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Order order = new Order();
-        positions.forEach(position -> position.setOrder(order));
+        LocalDateTime date = LocalDateTime.now();
+        double cost = 0;
+        for (Position position : positions) {
+            products.remove(position.getProduct());
+            position.setOrder(order);
+            cost += position.getCost();
+        }
+        order.setDate(date);
+        order.setCost(cost);
         order.setOrderPositions(positions);
         if (auth.isAuthenticated()) {
             String name = auth.getName();
             User user = userRepository.findByName(name);
             order.setUser(user);
         }
+        System.out.println(order.getOrderPositions().size());
         orderRepository.save(order);
     }
 }

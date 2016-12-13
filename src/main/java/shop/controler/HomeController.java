@@ -49,10 +49,16 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         User user = userRepository.findByName(name);
-        System.out.println(user);
-        Order order = orderRepository.findByUser(user);
-        System.out.println(order);
-        model.addAttribute(order);
+        List<Order> orders = orderRepository.findByUser(user);
+        model.addAttribute("orders",orders);
         return "history";
+    }
+
+    @RequestMapping("/order")
+    public String order(@RequestParam("id") long id, Model model){
+        Order order = orderRepository.findOne(id);
+        model.addAttribute(order);
+        System.out.println(order.getOrderPositions().size());
+        return "order";
     }
 }

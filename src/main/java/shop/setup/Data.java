@@ -5,8 +5,7 @@ import org.springframework.stereotype.Component;
 import shop.entity.*;
 import shop.repository.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class Data {
@@ -55,9 +54,13 @@ public class Data {
         geForce960GTS.setCompany(nvidia);
         geForce960GTS.setDescription("The latest video card.");
         geForce960GTS.setType(videoCard);
+        AttributeValue att  = new AttributeValue(socket,"test");
         AttributeValue att1 = new AttributeValue(memorySize, "2 GB");
         AttributeValue att2 = new AttributeValue(frequency, "560 GHz");
-        List<AttributeValue> attributeValues = Arrays.asList(att1, att2);
+        Set<AttributeValue> attributeValues = new HashSet<>();
+        attributeValues.add(att);
+        attributeValues.add(att1);
+        attributeValues.add(att2);
         geForce960GTS.setAttributeValues(attributeValues);
         productRepository.save(Arrays.asList(geForce960GTS));
 
@@ -77,7 +80,7 @@ public class Data {
             System.out.println(product.getCompany());
             System.out.println(product.getDescription());
             System.out.println(product.getType().getName());
-            List<AttributeValue> attributeValue = product.getAttributeValues();
+            Set<AttributeValue> attributeValue = product.getAttributeValues();
             for (AttributeValue value : attributeValue) {
                 System.out.print(value.getAttribute().getName() + " ");
                 System.out.println(value.getValue());
@@ -99,7 +102,9 @@ public class Data {
         intelCPU.setType(cpu);
         AttributeValue intelCPUAtt1 = new AttributeValue(coresCount, "4");
         AttributeValue intelCPUAtt2 = new AttributeValue(frequency, "2000 GHz");
-        List<AttributeValue> intelCPUAtt = Arrays.asList(intelCPUAtt1, intelCPUAtt2);
+        Set<AttributeValue> intelCPUAtt = new HashSet<>();
+        intelCPUAtt.add(intelCPUAtt1);
+        intelCPUAtt.add(intelCPUAtt2);
         intelCPU.setAttributeValues(intelCPUAtt);
         productRepository.save(Arrays.asList(intelCPU));
     }

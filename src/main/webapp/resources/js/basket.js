@@ -19,6 +19,15 @@ app.controller("basketCtrl", function ($scope, $http) {
         var param = $scope.positions.filter(function (position) {
             return position.buy;
         });
-        $http.post("/book",param)
+        $http.post("/book",param).then(function () {
+            $scope.positions = $scope.positions.filter(function (position) {
+                return !position.buy;
+            })
+        },function (data) {});
+
+    }
+    
+    $scope.changeCount = function (position) {
+        position.cost = position.count * position.product.cost;
     }
 });

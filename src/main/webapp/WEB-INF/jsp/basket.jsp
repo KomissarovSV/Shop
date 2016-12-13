@@ -20,8 +20,8 @@
         <td>{{position.product.name}}</td>
         <td>{{position.product.company.name}}</td>
         <td>{{position.product.type.name}}</td>
-        <td><input type="number" min="0" ng-model="position.count"></td>
-        <td>{{position.count * position.cost}}</td>
+        <td><input type="number" min="0" ng-model="position.count" ng-change="changeCount(position)"></td>
+        <td>{{position.cost}}</td>
     </tr>
 </table>
 <input type="button" value="Order" ng-click="book()">
