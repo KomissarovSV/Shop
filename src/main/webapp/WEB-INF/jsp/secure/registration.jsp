@@ -17,18 +17,27 @@
         <tr>
             <td>Username:</td>
             <td><form:input path="name" value=""/></td>
+            <td><form:errors path="name" cssClass="error"/></td>
         </tr>
         <tr>
             <td>Phone:</td>
             <td><form:input path="phone" value=""/></td>
+            <td><form:errors path="phone" cssClass="error"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><form:input path="email" value=""/></td>
+            <td><form:errors path="email" cssClass="error"/></td>
         </tr>
         <tr>
             <td>Password:</td>
             <td><form:input path="password" value="" type="password"/></td>
+            <td><form:errors path="password" cssClass="error"/></td>
         </tr>
         <tr>
             <td>Repeat password:</td>
             <td><form:input path="matchingPassword" value="" type="password"/></td>
+            <td><form:errors path="matchingPassword" cssClass="error"/></td>
         </tr>
         <tr>
             <td></td>

@@ -73,6 +73,9 @@ public class Application{
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
+                    .antMatchers("/manage").hasRole("ADMIN")
+                    .antMatchers("/history").authenticated()
+                    .antMatchers("/order").authenticated()
                     .anyRequest()
                     .permitAll()
                     .and()

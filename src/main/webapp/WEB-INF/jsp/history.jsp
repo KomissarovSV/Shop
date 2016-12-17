@@ -10,12 +10,14 @@
         <th>Identity number</th>
         <th>Date</th>
         <th>Cost</th>
+        <th>Status</th>
     </tr>
     <c:forEach items="${orders}" var="order">
         <tr ng-click="goToOrder(${order.id})">
             <td>${order.id}</td>
             <td>${order.date}</td>
             <td>${order.cost}</td>
+            <td>${order.status.name}</td>
         </tr>
     </c:forEach>
 </table>

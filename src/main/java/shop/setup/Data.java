@@ -28,7 +28,20 @@ public class Data {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    StatusRepository statusRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     public void setUp(){
+
+        Status status1 = new Status("Waiting for approval");
+        Status status2 = new Status("In process");
+        Status status3 = new Status("Done");
+        Status status4 = new Status("Decline");
+
+        statusRepository.save(Arrays.asList(status1,status2,status3,status4));
 
         Company intel = new Company("Intel");
         Company amd = new Company("AMD");

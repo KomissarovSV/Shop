@@ -26,6 +26,12 @@ app.controller("basketCtrl", function ($scope, $http) {
         },function (data) {});
 
     }
+
+    $scope.delete = function (index) {
+        $http.get("/delete?index=" + index).then(function () {
+            $scope.positions.splice(index,1);
+        },function (data) {});
+    }
     
     $scope.changeCount = function (position) {
         position.cost = position.count * position.product.cost;

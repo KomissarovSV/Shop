@@ -22,6 +22,9 @@ public class Order {
 
     private Double cost;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Status status;
+
     @OneToMany(mappedBy = "order",cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private Set<Position> orderPositions;
 

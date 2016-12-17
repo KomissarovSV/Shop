@@ -7,20 +7,19 @@
 
     <table style="border-spacing: 10px; border-collapse: separate;">
         <tr>
+            <td>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <td><a href="<c:url value="/manage"/>">Manage</a></td>
+                </sec:authorize>
+            </td>
             <td><a href="/basket">Basket</a></td>
             <sec:authorize access="isAnonymous()">
                 <td><a href="<c:url value="/user/login"/>">Log in</a></td>
                 <td>|<a href="<c:url value="/user/registration"/>">Registration</a></td>
             </sec:authorize>
             <sec:authorize access="!isAnonymous()">
-                You entered as user:<br>
+                You entered as user:
                 <sec:authentication property="principal.username"/>
-                <td><c:url var="usermyUrl" value="/user/my"/>
-                    <form action="${usermyUrl}" method="post">
-                        <input type="submit" value="Private Area"/>
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    </form>
-                </td>
                 <td><c:url var="logoutUrl" value="/logout"/>
                     <form action="${logoutUrl}" method="post">
                         <input type="submit" value="Exit"/>

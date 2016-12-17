@@ -26,7 +26,7 @@ app.controller("productsCtrl", function ($scope,$http) {
 
 app.filter("myFilter", function() {
     return function (items, min, max) {
-        var result = []
+        var result = [];
         for (var i=0; i<items.length; i++){
             if (items[i].cost >= min && items[i].cost <= max)  {
                 result.push(items[i]);

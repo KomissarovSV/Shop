@@ -5,8 +5,10 @@
 <head>
 </head>
 <body ng-controller="basketCtrl">
-<a href="/history">Orders history</a>
-<table class="table table-hover"  ng-cloak>
+<sec:authorize access="!isAnonymous()">
+    <a href="/history">Orders history</a>
+</sec:authorize>
+<table class="table table-hover" ng-cloak>
     <tr>
         <th>Buy</th>
         <th>Name</th>
@@ -16,12 +18,13 @@
         <th>Cost</th>
     </tr>
     <tr ng-repeat="position in positions">
-        <td><input type="checkbox" ng-model="position.buy"> </td>
+        <td><input type="checkbox" ng-model="position.buy"></td>
         <td>{{position.product.name}}</td>
         <td>{{position.product.company.name}}</td>
         <td>{{position.product.type.name}}</td>
         <td><input type="number" min="0" ng-model="position.count" ng-change="changeCount(position)"></td>
         <td>{{position.cost}}</td>
+        <td><input type="button" value="remove" ng-click="delete($index)"></td>
     </tr>
 </table>
 <input type="button" value="Order" ng-click="book()">

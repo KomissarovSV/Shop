@@ -31,6 +31,9 @@ public class HomeRestController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    StatusRepository statusRepository;
+
     @RequestMapping("/products")
     public Iterable<Product> getProducts(){
         Iterable<Product> products = productRepository.findAll();
@@ -85,6 +88,8 @@ public class HomeRestController {
         }
         order.setDate(date);
         order.setCost(cost);
+        Status status = statusRepository.findByName("Waiting for approval");
+        order.setStatus(status);
         order.setOrderPositions(positions);
         if (auth.isAuthenticated()) {
             String name = auth.getName();
@@ -93,5 +98,11 @@ public class HomeRestController {
         }
         System.out.println(order.getOrderPositions().size());
         orderRepository.save(order);
+    }
+
+    @RequestMapping("/delete")
+    public void delete(@RequestParam("index") int index,
+                       @ModelAttribute("products") List<Product> products){
+        products.remove(index);
     }
 }

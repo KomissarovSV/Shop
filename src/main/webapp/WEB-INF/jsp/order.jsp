@@ -6,6 +6,7 @@
 </head>
 <body>
 <table class="table table-hover">
+    ${order.status.name}
     <tr>
         <th>Name</th>
         <th>Company</th>
