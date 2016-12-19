@@ -12,10 +12,13 @@
         <th>Cost</th>
     </tr>
     <c:forEach items="${statistics}" var="statistic">
-        <tr>${statistic.product.name}</tr>
-        <tr>${statistic.count}</tr>
-        <tr>${statistic.cost}</tr>
+        <tr>
+            <td>${statistic.product.name}</td>
+            <td>${statistic.count}</td>
+            <td>${statistic.cost}</td>
+        </tr>
     </c:forEach>
+
 </table>
 </body>
 </html>

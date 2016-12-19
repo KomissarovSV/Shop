@@ -28,6 +28,9 @@
     </tr>
 </table>
 <input type="button" value="Order" ng-click="book()">
+<sec:authorize access="isAnonymous()">
+    <input type="text" placeholder="Input Phone" ng-model="phone">
+</sec:authorize>
 <script src="/resources/js/basket.js"></script>
 </body>
 </html>

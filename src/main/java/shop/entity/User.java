@@ -32,6 +32,6 @@ public class User {
     @Transient
     private String matchingPassword;
 
-    @OneToMany
+    @ManyToMany
     private Set<Role> roles;
 }

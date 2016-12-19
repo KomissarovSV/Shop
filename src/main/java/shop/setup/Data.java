@@ -104,6 +104,15 @@ public class Data {
         Role role_user = new Role("ROLE_USER");
         roleRepository.save(Arrays.asList(role_admin,role_user));
 
+        User admin = new User();
+        admin.setName("Admin");
+        admin.setPhone("65394");
+        admin.setEmail("admin@admin.com");
+        admin.setPassword("123");
+        admin.setMatchingPassword("123");
+        Role role = roleRepository.findByName("ROLE_ADMIN");
+        admin.setRoles(new HashSet<>(Arrays.asList(role)));
+        userRepository.save(admin);
     }
 
     private void getProduct(Company intel, Type cpu, Attribute coresCount, Attribute frequency) {

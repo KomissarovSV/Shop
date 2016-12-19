@@ -11,7 +11,6 @@
         <th>Identity number</th>
         <th>User name</th>
         <th>Phone</th>
-        <th>Email</th>
         <th>Date</th>
         <th>Cost</th>
         <th>Status</th>
@@ -22,7 +21,6 @@
             <td ng-click="goToOrder(${order.id})">${order.id}</td>
             <td>${order.user.name}</td>
             <td>${order.user.phone}</td>
-            <td>${order.user.email}</td>
             <td>${order.date}</td>
             <td>${order.cost}</td>
             <td>

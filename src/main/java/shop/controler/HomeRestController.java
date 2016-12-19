@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import shop.common.BookBody;
 import shop.entity.*;
 import shop.repository.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @SessionAttributes("products")
@@ -33,6 +32,9 @@ public class HomeRestController {
 
     @Autowired
     StatusRepository statusRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @RequestMapping("/products")
     public Iterable<Product> getProducts(){
@@ -76,12 +78,12 @@ public class HomeRestController {
     }
 
     @RequestMapping("/book")
-    public void book(@RequestBody Set<Position> positions, @ModelAttribute("products") List<Product> products){
+    public void book(@RequestBody BookBody bookBody, @ModelAttribute("products") List<Product> products){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Order order = new Order();
         LocalDateTime date = LocalDateTime.now();
         double cost = 0;
-        for (Position position : positions) {
+        for (Position position : bookBody.getPositions()) {
             products.remove(position.getProduct());
             position.setOrder(order);
             cost += position.getCost();
@@ -90,13 +92,24 @@ public class HomeRestController {
         order.setCost(cost);
         Status status = statusRepository.findByName("Waiting for approval");
         order.setStatus(status);
-        order.setOrderPositions(positions);
-        if (auth.isAuthenticated()) {
+        order.setOrderPositions(bookBody.getPositions());
+        if (!auth.getName().equals("anonymousUser")) {
             String name = auth.getName();
             User user = userRepository.findByName(name);
             order.setUser(user);
+        }else{
+
+            User anonim = new User();
+            anonim.setName("Anonymous");
+            anonim.setPhone(bookBody.getPhone());
+            anonim.setEmail("an@an.an");
+            anonim.setPassword("3466547");
+            anonim.setMatchingPassword("3466547");
+            Role role = roleRepository.findByName("ROLE_USER");
+            anonim.setRoles(new HashSet<>(Arrays.asList(role)));
+            userRepository.save(anonim);
+            order.setUser(anonim);
         }
-        System.out.println(order.getOrderPositions().size());
         orderRepository.save(order);
     }
 

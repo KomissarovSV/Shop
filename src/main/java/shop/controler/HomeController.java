@@ -85,10 +85,8 @@ public class HomeController {
     public String statistics(Model model) {
         List<Position> positions = positionRepository.findAll();
         List<Statistic> statistics = new ArrayList<>();
-        double cost = 0;
-        int cout = 0;
         Map<Product, List<Statistic>> collect = positions.stream()
-                .filter(p ->p.getOrder().getStatus().equals("Done"))
+                .filter(p ->p.getOrder().getStatus().getName().equals("Done"))
                 .map(position -> {
                     Statistic statistic = new Statistic();
                     statistic.setProduct(position.getProduct());
@@ -97,13 +95,15 @@ public class HomeController {
                     return statistic;
                 }).collect(groupingBy(Statistic::getProduct));
         for (Product product : collect.keySet()) {
+            double cost = 0;
+            int count = 0;
             List<Statistic> statistics2 = collect.get(product);
             for (Statistic statistic : statistics2) {
                 cost += statistic.getCost();
-                cout += statistic.getCount();
+                count += statistic.getCount();
             }
             Statistic statistic = new Statistic();
-            statistic.setCount(cout);
+            statistic.setCount(count);
             statistic.setProduct(product);
             statistic.setCost(cost);
             statistics.add(statistic);

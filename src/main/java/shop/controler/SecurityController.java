@@ -47,8 +47,8 @@ public class SecurityController {
     @RequestMapping(value = "/user/registration", method = POST)
     public String registerUserAccount(@ModelAttribute("user") @Valid User account,
                                             BindingResult result, Model model) {
-        if (!result.hasErrors()) {
-            createUserAccount(account, result);
+        if (!result.hasErrors() || userRepository.findByName(account.getName()) == null) {
+            createUserAccount(account);
             return "successRegister";
         }else {
             model.addAttribute("user",account);
@@ -56,13 +56,11 @@ public class SecurityController {
         }
     }
 
-    private void createUserAccount(User user, BindingResult result) {
-        if (userRepository.findByName(user.getName()) == null) {
+    private void createUserAccount(User user) {
             user.setPassword(user.getPassword());
             user.setMatchingPassword(user.getPassword());
             Role role = roleRepository.findByName("ROLE_USER");
             user.setRoles(new HashSet<>(Arrays.asList(role)));
             userRepository.save(user);
-        }
     }
 }
