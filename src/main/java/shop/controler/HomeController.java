@@ -126,4 +126,23 @@ public class HomeController {
         return "manage";
     }
 
+    @RequestMapping("/add")
+    public String add() {
+        return "addProduct";
+    }
+
+    @RequestMapping("/deleteProduct")
+    public String del(Model model) {
+        Iterable<Product> all = productRepository.findAll();
+        model.addAttribute("products",all);
+        return "deleteProduct";
+    }
+
+    @RequestMapping("/del")
+    public String del(@RequestParam("id") long id, Model model){
+        productRepository.delete(id);
+        Iterable<Product> all = productRepository.findAll();
+        model.addAttribute("products",all);
+        return "deleteProduct";
+    }
 }

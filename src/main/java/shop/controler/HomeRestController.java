@@ -36,6 +36,9 @@ public class HomeRestController {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    AttributeRepository attributeRepository;
+
     @RequestMapping("/products")
     public Iterable<Product> getProducts(){
         Iterable<Product> products = productRepository.findAll();
@@ -79,6 +82,9 @@ public class HomeRestController {
 
     @RequestMapping("/book")
     public void book(@RequestBody BookBody bookBody, @ModelAttribute("products") List<Product> products){
+        if (bookBody.getPhone() == null){
+            return;
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Order order = new Order();
         LocalDateTime date = LocalDateTime.now();
@@ -117,5 +123,16 @@ public class HomeRestController {
     public void delete(@RequestParam("index") int index,
                        @ModelAttribute("products") List<Product> products){
         products.remove(index);
+    }
+
+    @RequestMapping("/atts")
+    public Iterable<Attribute> atts(){
+        Iterable<Attribute> all = attributeRepository.findAll();
+        return all;
+    }
+
+    @RequestMapping("/save")
+    public void save(@RequestBody Product product){
+        productRepository.save(product);
     }
 }

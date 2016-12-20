@@ -6,6 +6,7 @@ import shop.entity.*;
 import shop.repository.*;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class Data {
@@ -43,62 +44,64 @@ public class Data {
 
         statusRepository.save(Arrays.asList(status1,status2,status3,status4));
 
-        Company intel = new Company("Intel");
-        Company amd = new Company("AMD");
-        Company nvidia = new Company("Nvidia");
-        Company radion = new Company("Radion");
-        companyRepository.save(Arrays.asList(intel,amd,nvidia,radion));
+        createProduct();
 
-        Type cpu = new Type("CPU");
-        Type motherboard = new Type("Motherboard");
-        Type videoCard = new Type("Video card");
-        Type type = new Type("Hard Drive");
-        typeRepository.save(Arrays.asList(cpu,motherboard,videoCard,type));
+//        Company intel = new Company("Intel");
+//        Company amd = new Company("AMD");
+//        Company nvidia = new Company("Nvidia");
+//        Company radion = new Company("Radion");
+//        companyRepository.save(Arrays.asList(intel,amd,nvidia,radion));
+//
+//        Type cpu = new Type("CPU");
+//        Type motherboard = new Type("Motherboard");
+//        Type videoCard = new Type("Video card");
+//        Type type = new Type("Hard Drive");
+//        typeRepository.save(Arrays.asList(cpu,motherboard,videoCard,type));
 
-        Attribute memorySize = new Attribute("Memory size");
-        Attribute coresCount = new Attribute("Cores count");
-        Attribute frequency = new Attribute("Frequency");
-        Attribute socket = new Attribute("Socket");
-        attributeRepository.save(Arrays.asList(memorySize,coresCount,frequency,socket));
+//        Attribute memorySize = new Attribute("Memory size");
+//        Attribute coresCount = new Attribute("Cores count");
+//        Attribute frequency = new Attribute("Frequency");
+//        Attribute socket = new Attribute("Socket");
+//        attributeRepository.save(Arrays.asList(memorySize,coresCount,frequency,socket));
+//
+//        Product geForce960GTS = new Product();
+//        geForce960GTS.setName("GeForce 960 GTS");
+//        geForce960GTS.setCost(900D);
+//        geForce960GTS.setCompany(nvidia);
+//        geForce960GTS.setDescription("The latest video card.");
+//        geForce960GTS.setType(videoCard);
+//        AttributeValue att  = new AttributeValue(socket,"test");
+//        AttributeValue att1 = new AttributeValue(memorySize, "2 GB");
+//        AttributeValue att2 = new AttributeValue(frequency, "560 GHz");
+//        Set<AttributeValue> attributeValues = new HashSet<>();
+//        attributeValues.add(att);
+//        attributeValues.add(att1);
+//        attributeValues.add(att2);
+//        geForce960GTS.setAttributeValues(attributeValues);
+//        productRepository.save(Arrays.asList(geForce960GTS));
+//
+//        getProduct(intel, cpu, coresCount, frequency);
+//        getProduct(intel, cpu, coresCount, frequency);
+//        getProduct(intel, cpu, coresCount, frequency);
+//        getProduct(intel, cpu, coresCount, frequency);
+//        getProduct(intel, cpu, coresCount, frequency);
+//        getProduct(intel, cpu, coresCount, frequency);
 
-        Product geForce960GTS = new Product();
-        geForce960GTS.setName("GeForce 960 GTS");
-        geForce960GTS.setCost(900D);
-        geForce960GTS.setCompany(nvidia);
-        geForce960GTS.setDescription("The latest video card.");
-        geForce960GTS.setType(videoCard);
-        AttributeValue att  = new AttributeValue(socket,"test");
-        AttributeValue att1 = new AttributeValue(memorySize, "2 GB");
-        AttributeValue att2 = new AttributeValue(frequency, "560 GHz");
-        Set<AttributeValue> attributeValues = new HashSet<>();
-        attributeValues.add(att);
-        attributeValues.add(att1);
-        attributeValues.add(att2);
-        geForce960GTS.setAttributeValues(attributeValues);
-        productRepository.save(Arrays.asList(geForce960GTS));
-
-        getProduct(intel, cpu, coresCount, frequency);
-        getProduct(intel, cpu, coresCount, frequency);
-        getProduct(intel, cpu, coresCount, frequency);
-        getProduct(intel, cpu, coresCount, frequency);
-        getProduct(intel, cpu, coresCount, frequency);
-        getProduct(intel, cpu, coresCount, frequency);
 
 
-
-        Iterable<Product> all = productRepository.findAll();
-        for (Product product : all) {
-            System.out.println(product.getName());
-            System.out.println(product.getCost());
-            System.out.println(product.getCompany());
-            System.out.println(product.getDescription());
-            System.out.println(product.getType().getName());
-            Set<AttributeValue> attributeValue = product.getAttributeValues();
-            for (AttributeValue value : attributeValue) {
-                System.out.print(value.getAttribute().getName() + " ");
-                System.out.println(value.getValue());
-            }
-        }
+//        Iterable<Product> all = productRepository.findAll();
+//        for (Product product : all) {
+//            System.out.println(product.getName());
+//            System.out.println(product.getCost());
+//            System.out.println(product.getCompany());
+//            System.out.println(product.getDescription());
+//            System.out.println(product.getType().getName());
+//            Set<AttributeValue> attributeValue = product.getAttributeValues();
+//            for (AttributeValue value : attributeValue) {
+//                System.out.print(value.getAttribute().getName() + " ");
+//                System.out.println(value.getValue());
+//            }
+//        }
 
         Role role_admin = new Role("ROLE_ADMIN");
         Role role_user = new Role("ROLE_USER");
@@ -129,5 +132,99 @@ public class Data {
         intelCPUAtt.add(intelCPUAtt2);
         intelCPU.setAttributeValues(intelCPUAtt);
         productRepository.save(Arrays.asList(intelCPU));
+    }
+
+
+    private void createProduct(){
+
+        Company intel = new Company("Intel");
+        Company amd = new Company("AMD");
+        Company nvidia = new Company("Nvidia");
+        Company radion = new Company("Radion");
+        companyRepository.save(Arrays.asList(intel,amd,nvidia,radion));
+
+        Type cpu = new Type("CPU");
+        Type motherboard = new Type("Motherboard");
+        Type videoCard = new Type("Video card");
+        Type hd = new Type("Hard Drive");
+        typeRepository.save(Arrays.asList(cpu,motherboard,videoCard,hd));
+
+        Attribute memorySize = new Attribute("Memory size GB");
+        Attribute coresCount = new Attribute("Cores count");
+        Attribute frequency = new Attribute("Frequency GHz");
+        Attribute socket = new Attribute("Socket");
+        List<Attribute> att = Arrays.asList(memorySize, coresCount, frequency, socket);
+        attributeRepository.save(att);
+
+
+        for (int i = 0; i < 20; i++) {
+            Product product = new Product();
+            product.setCost((double) ThreadLocalRandom.current().nextInt(5000));
+            int name = ThreadLocalRandom.current().nextInt(3);
+            switch (name){
+                case 0:
+                    product.setName("ComboTech #" + i);
+                    product.setDescription("latest version");
+                    break;
+                case 1:
+                    product.setName("Vertik $" + i);
+                    product.setDescription("modern technology");
+                    break;
+                case 2:
+                    product.setName("SpeedRun %" + i);
+                    product.setDescription("new color");
+                    break;
+                case 3:
+                    product.setName("SuperProduct " + i);
+                    product.setDescription("modern technology");
+                    break;
+            }
+            int type = ThreadLocalRandom.current().nextInt(3);
+            switch (type){
+                case 0:
+                    product.setType(cpu);
+                    break;
+                case 1:
+                    product.setType(motherboard);
+                    break;
+                case 2:
+                    product.setType(videoCard);
+                    break;
+                case 3:
+                    product.setType(hd);
+                    break;
+            }
+
+
+            int company = ThreadLocalRandom.current().nextInt(3);
+            switch (company){
+                case 0:
+                    product.setCompany(intel);
+                    break;
+                case 1:
+                    product.setCompany(amd);
+                    break;
+                case 2:
+                    product.setCompany(nvidia);
+                    break;
+                case 3:
+                    product.setCompany(radion);
+                    break;
+            }
+
+            int attCount = ThreadLocalRandom.current().nextInt(4);
+            Set<AttributeValue> attList = new HashSet<>();
+            for (int j = 0; j < attCount; j++) {
+                Attribute attribute = att.get(j);
+                AttributeValue attributeValue = new AttributeValue(attribute, "" + j + 1);
+                attList.add(attributeValue);
+                // attributeValueRepository.save(attributeValue);
+            }
+            product.setAttributeValues(attList);
+
+            productRepository.save(product);
+
+        }
+
     }
 }

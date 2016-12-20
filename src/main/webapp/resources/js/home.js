@@ -5,12 +5,12 @@ app.controller("productsCtrl", function ($scope,$http) {
         $scope.products = response.data;
 
         $scope.min = ($scope.products.reduce(function (x,y) {
-            return x>y?x:y;
-        })).cost
+            return x.cost>y.cost?y:x;
+        })).cost;
 
         $scope.max = ($scope.products.reduce(function (x,y) {
-            return x>y?y:x;
-        })).cost
+            return x.cost>y.cost?x:y;
+        })).cost;
 
     }, error = function (data) {});
 

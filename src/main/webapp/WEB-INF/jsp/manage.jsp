@@ -6,6 +6,10 @@
 </head>
 <body>
 <a href="/statistics">Statistics</a>
+<br>
+<a href="/deleteProduct">Delete product</a>
+<br>
+<a href="/add">Add product</a>
 <table class="table table-hover" ng-controller="ctrl">
     <tr>
         <th>Identity number</th>

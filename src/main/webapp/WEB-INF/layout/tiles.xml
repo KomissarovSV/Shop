@@ -100,4 +100,20 @@
                        value="/WEB-INF/layout/loginlayout.jsp"/>
         <put-attribute name="body" value="/WEB-INF/jsp/statistics.jsp" />
     </definition>
+
+    <definition name="addProduct" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value="/WEB-INF/layout/loginlayout.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/addProduct.jsp" />
+    </definition>
+
+    <definition name="deleteProduct" extends="base">
+        <put-attribute name="header"
+                       value="/WEB-INF/layout/header.jsp"/>
+        <put-attribute name="login"
+                       value="/WEB-INF/layout/loginlayout.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/deleteProduct.jsp" />
+    </definition>
 </tiles-definitions>

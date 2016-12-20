@@ -23,9 +23,6 @@ public class Product {
     private Company company;
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-//    @JoinTable(joinColumns={ @JoinColumn(name="product_id", referencedColumnName="id") },
-//            inverseJoinColumns={ @JoinColumn(name="att_id", referencedColumnName="id") }
-//            )
     private Set<AttributeValue> attributeValues;
 
     @ManyToOne
