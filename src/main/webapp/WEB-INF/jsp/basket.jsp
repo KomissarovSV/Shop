@@ -31,6 +31,9 @@
 <sec:authorize access="isAnonymous()">
     <input type="text" placeholder="Input Phone" ng-model="phone">
 </sec:authorize>
+<sec:authorize access="!isAnonymous()">
+    <input type="hidden" ng-model="phone=123">
+</sec:authorize>
 <script src="/resources/js/basket.js"></script>
 </body>
 </html>

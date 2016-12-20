@@ -1,7 +1,7 @@
 var app = angular.module("app", []);
 
 app.controller("basketCtrl", function ($scope, $http) {
-    
+
     $http.get('/basket/products').then(function (response) {
         $scope.positions = [];
         response.data.forEach(function (product) {
@@ -16,10 +16,16 @@ app.controller("basketCtrl", function ($scope, $http) {
     });
 
     $scope.book = function () {
+
+        for (var i = 0; i < $scope.positions.length; i++){
+            if ($scope.positions[i].count == undefined && $scope.positions[i].buy){
+                return
+            }
+        }
         var pos = $scope.positions.filter(function (position) {
             return position.buy && position.count > 0;
         });
-        if (pos.length == 0){
+        if (pos.length == 0 || $scope.phone == undefined){
             return
         }
         var param = {
@@ -28,7 +34,7 @@ app.controller("basketCtrl", function ($scope, $http) {
         }
         $http.post("/book",param).then(function () {
             $scope.positions = $scope.positions.filter(function (position) {
-                return !position.buy;
+                return !position.buy || position.count == undefined;
             })
         },function (data) {});
 
