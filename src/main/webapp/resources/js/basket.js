@@ -2,16 +2,34 @@ var app = angular.module("app", []);
 
 app.controller("basketCtrl", function ($scope, $http) {
 
-    $http.get('/basket/products').then(function (response) {
-        $scope.positions = [];
-        response.data.forEach(function (product) {
-            var position = {};
-            position.buy = true;
-            position.product = product;
-            position.count = 1;
-            position.cost = product.cost;
-            $scope.positions.push(position);
-        });
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "1000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    $http.get('/basket/positions').then(function (response) {
+        $scope.positions = response.data;
+        // response.data.forEach(function (product) {
+        //     var position = {};
+        //     position.buy = true;
+        //     position.product = product;
+        //     position.count = 1;
+        //     position.cost = product.cost;
+        //     $scope.positions.push(position);
+        // });
     }, function (data) {
     });
 
@@ -19,13 +37,19 @@ app.controller("basketCtrl", function ($scope, $http) {
 
         for (var i = 0; i < $scope.positions.length; i++){
             if ($scope.positions[i].count == undefined && $scope.positions[i].buy){
+                toastr.error('Product at ' + (i+1) + ' position has count less then 0', 'Error')
                 return
             }
         }
         var pos = $scope.positions.filter(function (position) {
             return position.buy && position.count > 0;
         });
-        if (pos.length == 0 || $scope.phone == undefined){
+        if (pos.length == 0){
+            toastr.error('There is nothing to order', 'Error');
+            return
+        }
+        if ($scope.phone == undefined){
+            toastr.error('Phone is empty', 'Error');
             return
         }
         var param = {
@@ -35,7 +59,8 @@ app.controller("basketCtrl", function ($scope, $http) {
         $http.post("/book",param).then(function () {
             $scope.positions = $scope.positions.filter(function (position) {
                 return !position.buy || position.count == undefined;
-            })
+            });
+            toastr.success('You have successfully done order. Wait for our phone', 'Order')
         },function (data) {});
 
     }

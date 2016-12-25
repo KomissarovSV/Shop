@@ -10,7 +10,7 @@
     <h4>Type: {{product.type.name}}</h4>
     <h4>Description: {{product.description}}</h4>
     <h4 ng-repeat="att in product.attributeValues">{{att.attribute.name}}: {{att.value}}</h4>
-    <input type="submit" value="Add to basket" ng-click="addBasket()">
+    <input type="submit" class="btn btn-info" value="Add to basket" ng-click="addBasket()">
 
 
     <script src="/resources/js/product.js"></script>

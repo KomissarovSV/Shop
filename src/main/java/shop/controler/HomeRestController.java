@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
-@SessionAttributes("products")
+@SessionAttributes("positions")
 public class HomeRestController {
 
     @Autowired
@@ -63,25 +63,37 @@ public class HomeRestController {
         return one;
     }
 
-    @RequestMapping("/basket/products")
-    public List<Product> basket(@ModelAttribute("products") List<Product> products){
-        return products;
+    @RequestMapping("/basket/positions")
+    public List<Position> basket(@ModelAttribute("positions") List<Position> positions){
+        return positions;
     }
 
     @RequestMapping("/addBasket")
     public void addInBasket(@RequestParam("id") long id,
-                            @ModelAttribute("products") List<Product> products){
+                            @ModelAttribute("positions") List<Position> positions){
+        for (Position position : positions) {
+            if (position.getProduct().getId() == id){
+                position.setCount(position.getCount() + 1);
+                position.setCost(position.getCost() + position.getProduct().getCost());
+                return;
+            }
+        }
         Product one = productRepository.findOne(id);
-        products.add(one);
+        Position position = new Position();
+        position.setBuy(true);
+        position.setCount(1);
+        position.setCost(one.getCost());
+        position.setProduct(one);
+        positions.add(position);
     }
 
-    @ModelAttribute("products")
-    public List<Product> populatePerson() {
+    @ModelAttribute("positions")
+    public List<Position> populatePerson() {
         return new ArrayList<>();
     }
 
     @RequestMapping("/book")
-    public void book(@RequestBody BookBody bookBody, @ModelAttribute("products") List<Product> products){
+    public void book(@RequestBody BookBody bookBody, @ModelAttribute("positions") List<Position> positions){
         if (bookBody.getPhone() == null){
             return;
         }
@@ -90,7 +102,7 @@ public class HomeRestController {
         LocalDateTime date = LocalDateTime.now();
         double cost = 0;
         for (Position position : bookBody.getPositions()) {
-            products.remove(position.getProduct());
+            positions.remove(position);
             position.setOrder(order);
             cost += position.getCost();
         }
@@ -121,8 +133,8 @@ public class HomeRestController {
 
     @RequestMapping("/delete")
     public void delete(@RequestParam("index") int index,
-                       @ModelAttribute("products") List<Product> products){
-        products.remove(index);
+                       @ModelAttribute("positions") List<Position> positions){
+        positions.remove(index);
     }
 
     @RequestMapping("/atts")

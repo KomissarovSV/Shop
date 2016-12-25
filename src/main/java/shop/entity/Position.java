@@ -17,6 +17,8 @@ public class Position {
 
     private Double cost;
 
+    private Boolean buy;
+
     @OneToOne
     private Product product;
 

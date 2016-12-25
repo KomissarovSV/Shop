@@ -160,7 +160,7 @@ public class Data {
         for (int i = 0; i < 20; i++) {
             Product product = new Product();
             product.setCost((double) ThreadLocalRandom.current().nextInt(5000));
-            int name = ThreadLocalRandom.current().nextInt(3);
+            int name = ThreadLocalRandom.current().nextInt(4);
             switch (name){
                 case 0:
                     product.setName("ComboTech #" + i);
@@ -179,7 +179,7 @@ public class Data {
                     product.setDescription("modern technology");
                     break;
             }
-            int type = ThreadLocalRandom.current().nextInt(3);
+            int type = ThreadLocalRandom.current().nextInt(4);
             switch (type){
                 case 0:
                     product.setType(cpu);
@@ -196,7 +196,7 @@ public class Data {
             }
 
 
-            int company = ThreadLocalRandom.current().nextInt(3);
+            int company = ThreadLocalRandom.current().nextInt(4);
             switch (company){
                 case 0:
                     product.setCompany(intel);
@@ -212,7 +212,7 @@ public class Data {
                     break;
             }
 
-            int attCount = ThreadLocalRandom.current().nextInt(4);
+            int attCount = ThreadLocalRandom.current().nextInt(5);
             Set<AttributeValue> attList = new HashSet<>();
             for (int j = 0; j < attCount; j++) {
                 Attribute attribute = att.get(j);

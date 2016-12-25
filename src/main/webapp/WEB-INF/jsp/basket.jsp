@@ -16,6 +16,7 @@
         <th>Type</th>
         <th>Count</th>
         <th>Cost</th>
+        <th>Action</th>
     </tr>
     <tr ng-repeat="position in positions">
         <td><input type="checkbox" ng-model="position.buy"></td>
@@ -24,10 +25,10 @@
         <td>{{position.product.type.name}}</td>
         <td><input type="number" min="0" ng-model="position.count" ng-change="changeCount(position)"></td>
         <td>{{position.cost}}</td>
-        <td><input type="button" value="remove" ng-click="delete($index)"></td>
+        <td><input type="button" class="btn btn-info" value="remove" ng-click="delete($index)"></td>
     </tr>
 </table>
-<input type="button" value="Order" ng-click="book()">
+<input type="button" class="btn btn-info"  value="Order" ng-click="book()">
 <sec:authorize access="isAnonymous()">
     <input type="text" placeholder="Input Phone" ng-model="phone">
 </sec:authorize>
